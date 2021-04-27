@@ -1,0 +1,64 @@
+﻿@model IEnumerable<EncoraApp.entity.note>
+
+
+@{
+    ViewBag.Title = "Notes";
+    //WebGrid grid = new WebGrid(Model);
+}
+<h2>User Notes</h2>
+
+@if (ViewBag.Message != null)
+{
+
+    <div class="alert alert-success" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isArchived)
+        </th>
+
+        <th></th>
+    </tr>
+
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.isArchived.Value, new { @disabled = "disabled" })
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Add", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id });
+                </td>
+            </tr>
+
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="4" class="text-center"><b>No Data Available.</b></td>
+        </tr>
+    }
+</table>
+
